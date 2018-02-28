@@ -1,0 +1,38 @@
+<form [formGroup]="formGroup" (ngSubmit)="save()">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" [class.is-invalid]="isInvalid('name')" id="name" formControlName="name">
+    <ng-container *ngIf="isInvalid('name')">
+      <div class="invalid-feedback" *ngIf="isInvalid('name', 'required')">
+        Name field is required
+      </div>
+      <div class="invalid-feedback" *ngIf="isInvalid('name', 'minlength')">
+        Name field must be at least 5 characters long
+      </div>
+    </ng-container>
+  </div>
+  <div class="form-group">
+    <label for="lastName">Last name</label>
+    <input type="text" class="form-control" [class.is-invalid]="isInvalid('lastName')" id="lastName" formControlName="lastName">
+    <ng-container *ngIf="isInvalid('lastName')">
+      <div class="invalid-feedback" *ngIf="isInvalid('lastName', 'required')">
+        Last name field is required
+      </div>
+    </ng-container>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" [class.is-invalid]="isInvalid('email')" id="email" formControlName="email">
+    <ng-container *ngIf="isInvalid('email')">
+      <div class="invalid-feedback" *ngIf="isInvalid('email', 'required')">
+        Email field is required
+      </div>
+      <div class="invalid-feedback" *ngIf="!isInvalid('email', 'required') && isInvalid('email', 'email')">
+        Email must be valid
+      </div>
+    </ng-container>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="formGroup.invalid">Send</button>
+  </div>
+</form>
