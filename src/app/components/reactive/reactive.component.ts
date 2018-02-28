@@ -8,13 +8,22 @@ import { FormGroup, FormControl, Validator, Validators } from '@angular/forms';
 })
 export class ReactiveComponent {
 
-  formGroup = new FormGroup({
-    'name': new FormControl('', [Validators.required, Validators.minLength(5)]),
-    'lastName': new FormControl('', Validators.required),
-    'email': new FormControl('', [Validators.required, Validators.email])
-  });
-
-  constructor() { }
+  user = {
+    name: 'Cristóbal',
+    lastName: 'Domínguez',
+    email: 'cristobaldominguez95@gmail.com',
+    hobbies: ['running', 'coding', 'reading']
+  };
+  formGroup: FormGroup;
+  
+  constructor() { 
+    this.formGroup = new FormGroup({
+      'name': new FormControl('', [Validators.required, Validators.minLength(5)]),
+      'lastName': new FormControl('', Validators.required),
+      'email': new FormControl('', [Validators.required, Validators.email])
+    });
+    this.formGroup.setValue(this.user);
+  }
 
   save(): void {
     console.log(this.formGroup.value);
