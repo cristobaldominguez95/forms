@@ -12,7 +12,6 @@ export class ReactiveComponent {
     name: 'Cristóbal',
     lastName: 'Domínguez',
     email: 'cristobaldominguez95@gmail.com',
-    hobbies: ['running', 'coding', 'reading']
   };
   formGroup: FormGroup;
   
