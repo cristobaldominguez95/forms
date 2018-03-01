@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validator, Validators } from '@angular/forms';
+import { Observable } from 'rxjs/rx';
 
 @Component({
   selector: 'app-reactive',
@@ -12,6 +13,7 @@ export class ReactiveComponent {
     name: 'Cristóbal',
     lastName: 'Domínguez',
     email: 'cristobaldominguez95@gmail.com',
+    username: ''
   };
   formGroup: FormGroup;
   
@@ -19,7 +21,8 @@ export class ReactiveComponent {
     this.formGroup = new FormGroup({
       'name': new FormControl('', [Validators.required, Validators.minLength(3), this.noPepe]),
       'lastName': new FormControl('', Validators.required),
-      'email': new FormControl('', [Validators.required, Validators.email])
+      'email': new FormControl('', [Validators.required, Validators.email]),
+      'username': new FormControl('', Validators.required, this.userExists)
     });
     this.formGroup.setValue(this.user);
   }
@@ -40,6 +43,19 @@ export class ReactiveComponent {
       return { noPepe: true };
     }
     return null;
+  }
+
+  userExists(formControl: FormControl): Promise<any> {
+    let promise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (formControl.value == 'pepe') {
+          resolve({ exists: true });
+        } else {
+          resolve(null);
+        }
+      }, 3000);
+    });
+    return promise;
   }
 
 }

@@ -33,6 +33,18 @@
     </ng-container>
   </div>
   <div class="form-group">
-    <button type="submit" class="btn btn-primary btn-block" [disabled]="formGroup.invalid">Send</button>
+    <label for="username">Username</label>
+    <input type="text" class="form-control" [class.is-invalid]="isInvalid('username')" id="username" formControlName="username">
+    <div *ngIf="formGroup.controls.username.status == 'PENDING'">
+      Loading...
+    </div>
+    <ng-container *ngIf="isInvalid('username')">
+      <div class="invalid-feedback" *ngIf="isInvalid('username', 'exists')">
+        Username is already taken
+      </div>
+    </ng-container>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="!formGroup.valid">Send</button>
   </div>
 </form>
